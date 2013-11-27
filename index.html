@@ -30,7 +30,6 @@ img {
 <div class="content">
 <img src="/img/vilcins.png">
 
-<!-- ICONS -->
           <svg id="svg-source" height="0" version="1.1" 
             xmlns="http://www.w3.org/2000/svg" 
             xmlns:xlink="http://www.w3.org/1999/xlink" style="position: absolute">
@@ -76,36 +75,6 @@ img {
               <feOffset
             dx='0'
             dy='0'
-          />
-              <!-- Shadow blur -->
-              <feGaussianBlur
-            stdDeviation='1'
-            result='offset-blur'
-          />
-              <!-- Invert drop shadow to make an inset shadow-->
-              <feComposite
-            operator='out'
-            in='SourceGraphic'
-            in2='offset-blur'
-            result='inverse'
-          />
-              <!-- Cut colour inside shadow -->
-              <feFlood
-            flood-color='black'
-            flood-opacity='.95'
-            result='color'
-          />
-              <feComposite
-            operator='in'
-            in='color'
-            in2='inverse'
-            result='shadow'
-          />
-              <!-- Placing shadow over element -->
-              <feComposite
-            operator='over'
-            in='shadow'
-            in2='SourceGraphic'
           />
             </filter>
           </svg>
