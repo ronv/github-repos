@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Map me In</title>
+  <title>Geolocation</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
   <style type="text/css">
@@ -51,7 +51,7 @@
       var content = 'Error: Your browser doesn\'t support geolocation.';
     }
 
- //   map.setCenter(options.position);
+    map.setCenter(options.position);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
