@@ -1,63 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
+<!--  Available for small projects! 
+       hello [at] vilcins [dot] lv  -->
 <html>
 <head>
-  <title>Geolocation</title>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-  <meta charset="utf-8">
-  <style type="text/css">
-  html { height: 100% }
-  body { height: 100%; margin: 0; padding: 0 }
-  #map-canvas { height: 100% }
-  </style>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true">
-  </script>
-  <script>
-  var map;
-
-  function initialize() {
-    var mapOptions = {
-      zoom: 18,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        var key = Math.floor(Math.random()*10000);
-        window.history.pushState(null, null, key);
-        xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET", 'save_loc/'+key+'/'+position.coords.latitude+'/'+position.coords.longitude, true);
-        xmlhttp.send();
-                var marker = new google.maps.Marker({
-          position: pos,
-          map: map,
-        });
-
-        map.setCenter(pos);
-      }, function() {
-        handleNoGeolocation(true);
-      });
-    } else {
-      handleNoGeolocation(false);
-    }
-  }
-
-  function handleNoGeolocation(errorFlag) {
-    if (errorFlag) {
-      var content = 'Error: The Geolocation service failed.';
-    } else {
-      var content = 'Error: Your browser doesn\'t support geolocation.';
-    }
-
-    map.setCenter(options.position);
+<meta charset="utf-8">
+<title>Ronalds Vilcins | Web Developer</title>
+<style type="text/css">
+body {
+background-color: #333333;
+margin: 0;
+padding: 0;
+}
+img {
+border: none;
+}
+.content {
+width: 500px;
+height: 200px;
+position: absolute;
+left: 50%;
+top: 50%; 
+margin-left: -250px;
+margin-top: -100px;
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+.colors
+{
+  position: absolute;
+  left:5em;
+  top:10%;
+  z-index: 1;
+}
+.colors li
+{
+  float: left;
+  margin: 0 10px 0 0;
+  width:30px;
+  height:30px;
+}
+.c1 { background-color: rgb(0, 77, 100);}
+.c2 { background-color: rgb(165, 143, 118);}
+.c3 { background-color: rgb(235, 91, 57);}
+
+ul, li { list-style-type: none;}
+
+.tint
+{
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0, 77, 100, .6); 
+}
+
+
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34932398-3']);
+  _gaq.push(['_setDomainName', 'vilcins.lv']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
 </script>
 </head>
 <body>
-<div id="map-canvas"></div>
+<ul class="colors">
+  <li class="c1"></li>
+  <li class="c2"></li>
+  <li class="c3"></li>
+</ul>
+<script type="text/javascript">
+  var colorPickers = document.querySelectorAll('.colors li');
+
+[].forEach.call(colorPickers, function (picker)
+{
+    picker.addEventListener('click', changeColor)
+});
+
+function changeColor()
+{
+  var colorValue = window.getComputedStyle(this, null).backgroundColor;
+  var tintColor = colorValue.replace(')', ', .6)');
+  tintColor = tintColor.replace('rgb', 'rgba');
+  document.querySelector('.tint').style.backgroundColor= tintColor;
+}
+</script>
+<div class="tint">
+<div class="content">
+<img src="/img/vilcins.png">
+</div>
+</div>
 </body>
 </html>
