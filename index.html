@@ -11,7 +11,7 @@ html, body {
 overflow:hidden; 
 padding:0; 
 margin: 0;
-background:#bbb; 
+background:#999; 
 }
 img {
 border: none;
@@ -121,7 +121,7 @@ for(var i in matrix){
         tile._y + size > mouse_y
       ){
         
-      _color = getRandomInt(225,250);
+      _color = getRandomInt(52, 152);
       color = [_color,_color,_color];
       
        c.fillStyle = "rgba("+color+",.1)";
@@ -155,7 +155,7 @@ function draw(){
       counter = counter - 1;
       var tile = matrix.randomElement();
       
-      _color = getRandomInt(180,220);
+      _color = getRandomInt(46, 204);
       color = [_color,_color,_color];
       c.fillStyle = "rgba("+color+",.1)";
       
