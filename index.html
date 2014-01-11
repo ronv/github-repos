@@ -1,183 +1,37 @@
-<!doctype html>
-<!--   Available for small projects! 
-        hello [at] vilcins [dot] lv  
--->
-<html>
-<head>
-<meta charset="utf-8">
-<title>Ronalds Vilcins | Web Developer</title>
-<style type="text/css">
-html, body { 
-overflow:hidden; 
-padding:0; 
-margin: 0;
-background:#333; 
-}
-img {
-border: none;
-position: absolute;
-}
-.content {
-width: 500px;
-height: 200px;
-position: absolute;
-left: 50%;
-top: 50%; 
-margin-left: -250px;
-margin-top: -100px;
-}
-</style>
-<script type="text/javascript">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Open source projects of Ronalds Vilcins</title>
+        <meta name="description" content="All open source projects of Ronalds Vilcins in one place.">
+        <link rel="stylesheet" href="assets/style.css">
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div class="grid">
+            <div class="unit-1-3 site-header">
+                <div class="box">
+                    <h2>GitHub repositories owned by <a href="https://github.com/ronv">Ronalds Vilcins</a></h2>
+                    <p class="stats">
+                        <a href="https://github.com/ronv/repositories"><b id="num-repos">View</b> public repos</a>
+                        <br>
+                        <a href="https://gist.github.com/ronv"><b id="num-gists">View</b> public gists</a>
+                    </p>
+                    <h3>Recently updated</h3>
+                    <ol id="updated-repos"></ol>
+                    <a class="twitter-follow-button"
+                        href="https://twitter.com/RonaldsVilcins"
+                        data-show-count="false"
+                        data-lang="en"
+                        data-count="none">Follow @RonaldsVilcins</a>
+                </div>
+            </div>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-34932398-3']);
-  _gaq.push(['_setDomainName', 'vilcins.lv']);
-  _gaq.push(['_trackPageview']);
+            <div class="site-content" id="repos"></div>
+        </div>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-</head>
-<body>
-<div class="content">
-<img src="/img/vilcins.png">
-</div>
-<canvas id="stage"></canvas>
-<script type="text/javascript">
- function getRandomInt (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-Array.prototype.randomElement = function () {
-  return this[Math.floor(Math.random() * this.length)];
-}
-
-
-var canvas = document.getElementById('stage'),
-    c = canvas.getContext('2d'),
-    size,
-    counter = 0,
-    width = 50,
-    mouse_x = -1,
-    mouse_y = -1,
-    fps = 60,
-    init = true,
-    now,
-    then = Date.now(),
-    interval = 1000/fps,
-    matrix = [];
-
-window.addEventListener('resize', resizeCanvas, false);
-window.addEventListener('mousemove', trackMouse, false);
-window.addEventListener('touchmove', trackMouse, false);
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  size = Math.ceil(canvas.width / width);
-  counter = 0;
-  for(var x = 0; x < width * 2; x++){
-    for(var y = 0; y < Math.ceil(canvas.height / size); y++){
-      matrix.push({
-        x : x,
-        y : y,
-        _x : x * size / 2,
-        _y : y * size
-      });
-    }
-  }
-  init = true;
-  draw();
-}
-resizeCanvas();
-
-function trackMouse(e){
-  mouse_x = -1;
-  mouse_y = -1;
-  
-  if (e && e.type === "mousemove") {
-    mouse_x = e.clientX;
-    mouse_y = e.clientY;
-  }
-  
-  if (e && e.type === "touchmove") {
-    var touch = e.touches[0];
-    mouse_x = touch.clientX;
-    mouse_y = touch.clientY;
-  }
-  
-for(var i in matrix){
-      var tile = matrix[i];
-      
-      if(
-        Math.random() < .2 &&
-        tile._x <= mouse_x &&
-        tile._x + size > mouse_x &&
-        tile._y <= mouse_y &&
-        tile._y + size > mouse_y
-      ){
-        
-      _color = getRandomInt(52, 152);
-      color = [_color,_color,_color];
-      
-       c.fillStyle = "rgba("+color+",.1)";
-      c.beginPath();
-      
-      if(tile.x % 2 == 0){
-        c.moveTo(tile._x - size / 2, tile._y);
-        c.lineTo(tile._x + size / 2, tile._y);
-        c.lineTo(tile._x, tile._y + size);
-      } else {
-        c.moveTo(tile._x - size/2, tile._y + size);
-        c.lineTo(tile._x, tile._y);
-        c.lineTo(tile._x + size/2, tile._y + size);
-      }
-      c.closePath();
-      c.fill();
-      }
-    }
-  
-}
-
-function draw(){
-  init = false;
-  var counter = 12;
-  if(init) counter = matrix.length;
-  console.log();
-  now = Date.now();
-  delta = now - then;
-  if (delta > interval) {
-    while(counter > 0){
-      counter = counter - 1;
-      var tile = matrix.randomElement();
-      
-      _color = getRandomInt(46, 204);
-      color = [_color,_color,_color];
-      c.fillStyle = "rgba("+color+",.1)";
-      
-      c.beginPath();
-      
-      if(tile.x % 2 == 0){
-        c.moveTo(tile._x - size / 2, tile._y);
-        c.lineTo(tile._x + size / 2, tile._y);
-        c.lineTo(tile._x, tile._y + size);
-      } else {
-        c.moveTo(tile._x - size/2, tile._y + size);
-        c.lineTo(tile._x, tile._y);
-        c.lineTo(tile._x + size/2, tile._y + size);
-      }
-      c.closePath();
-      c.fill();
-    }
-    
-    then = now - (delta % interval);
-  }
-  window.requestAnimationFrame(draw);
-}
-</script>
-</body>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="assets/jquery-1.7.1.min.js"><\/script>')</script>
+        <script src="assets/app.js"></script>
+    </body>
 </html>
